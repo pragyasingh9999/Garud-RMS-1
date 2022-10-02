@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Garud-RMS | Dashboard</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+   
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+   
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  
+ <!-- firebase script -->
+<script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-functions.js"></script>
+<script src="node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+ 
+  </head>
+<body class="hold-transition sidebar-mini layout-fixed">
+  <div id="loading">
+   
+</div>
+
+<style type="text/css">
+  #loading {
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   position: fixed;
+   display: none;
+   opacity: 0.7;
+   background-color: rgba(192, 192, 192, 0.5);
+   z-index: 99;
+   background-position: center;
+   background-image: url("css/loader2.gif");
+   background-repeat: no-repeat;
+
+}
+
+ 
+  
+
+</style>
+
+
+<div class="wrapper">
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="#" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="./About.html" class="nav-link">About</a>
+      </li>
+    </ul>
+     
+     
+
+    <!-- SEARCH FORM -->
+    
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <!-- Messages Dropdown Menu -->
+       
+       
+      <li class="nav-item">
+        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">
+          <i class="fas fa-th-large"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="#" class="brand-link">
+      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">Garud-RMS</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="css/logo.png" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">GTU</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-tabs nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item">
+            <a href="#dashboard"   id="dash" class="nav-link active" data-toggle="tab">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+            
+            
+          </li>
+
+          
+          <li id="cResult" class="nav-item"  >
+            <a href="#createResult"  class="nav-link" data-toggle="tab">
+              <i class="nav-icon fas fa-plus-circle"></i>
+              <p>
+                Create Result 
+                <span class="right"><i class="fas fa-angle-right"></i></span>
+              </p>
+            </a>
+          </li>
+
+        
+          
+
+          
+           
+            <li class="nav-item" id="dStudent"  >
+            <a href="#deleteName"   class="nav-link" data-toggle="tab">
+               <i class="nav-icon fas fa-trash-alt"></i>
+              <p>
+               Delete Student Name 
+                <span class="right"><i class="fas fa-angle-right"></i></span>
+              </p>
+            </a>
+          </li>
+           <li class="nav-item">
+            <a href="/index.html"   id="signOut" class="nav-link">
+              <i class="nav-icon fas fa-power-off"></i>
+              <p onclick="">
+                Logout 
+                <span class="right"><i class="fas fa-angle-right"></i></span>
+              </p>
+            </a>
+          </li>
+          
+          
+           
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+     
+ 
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="tab-content">
+        <div class="tab-pane" id="createResult">
+          
+
+          <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <style type="text/css">
+                #schoolname{
+                  font-family: "Arial Black", "Arial Bold", Gadget, sans-serif;
+                  font-weight: bolder;
+                }
+              </style>
+              <img  class="float-left" src="css/logo.png" width="70px" height="60px">
+              <h1 id="schoolname" align="center">Garud Technical University</h1>
+              <p align="center"><b>website:</b> www.gtu.ac.in <b>Email:</b> garudtehcnicaluniversity@gmail.com</p>
+              <p align="center"> Tel:1234567890, 265256355, 07267523535</p>
+
+              <div  class="form-inline ">
+      
+         
+        <h5 class="brand-text font-weight-bold p-2 ">Name:</h5><input type="text" class="form-control w-50 " style="text-transform: capitalize;"   value="" id="inputName" placeholder="Student Name"> 
+       
+         
+    </div>
+              <div class="row">
+             <form class="form-inline col-md-6 ">
+    <div  class="form-group">
+      
+         
+        <h5 class="brand-text font-weight-bold p-2">Session:</h5><input type="text" class="form-control " style="text-transform: capitalize;" id="sessionStudent"    placeholder="Session"> 
+       
+         
+    </div>
+     
+    </form>
+
+<form class="form-inline col-md-6 ">
+    <div class="form-group"  >
+         
+         <h5 class="brand-text  font-weight-bold ml-5 p-2 ">Semester:</h5><input type="text" class="form-control"  id="inputTerm"  placeholder="sem">
+    </div>
+  </form>
+     
+    
+
+</div>
+            </div>
+
+<!-- /.second form -->
+             <div class="card-header">
+              
+  <div class="row">
+             <form class="form-inline col-md-6 ">
+    <div  class="form-group">
+      
+         
+        <h5 class="brand-text font-weight-bold p-2">Attendance:</h5><input type="text" class="form-control "  value="" id="attend"  placeholder="Attendance">
+         
+    </div>
+    </form>
+<form class="form-inline col-md-6 ">
+    <div class="form-group"  >
+         
+         <h5 class="brand-text  font-weight-bold ml-5 p-2 ">Branch:</h5><input type="text" class="form-control" value="" id="inputClass" placeholder="Student Branch">
+    </div>
+  </form>
+     
+    
+
+</div>
+            </div>
+
+
+             
+             
+              <div class="card-body" id="result">
+
+              <div class="table-responsive">
+              <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                          <!-- <th>SUBJECTS</th> -->
+                        <th >Code</th> 
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Internal<br>(50)</th> 
+                        <th>External<br>(100)</th>
+                        <th>Back Paper</th>
+                        <th>Grade</th> 
+                        <!-- <th>Class Ave</th>
+                        <th>Grades</th>
+                        <th>Position</th> 
+                        <th>Remarks</th> -->
+                   
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    
+  <td><textarea id="subcode"></textarea></td>
+  <td><textarea id="subname"></textarea></td>
+  <td><textarea id="subtype"></textarea></td>
+  <td><textarea id="subinternal" onkeyup="numbersOnly(this)"></textarea></td>
+  <td><textarea id="subexternal" onkeyup="numbersOnly(this)"></textarea></td>
+  <td><textarea id="subback"></textarea></td>
+  <td><textarea id="subgrade"></textarea></td>
+                </tr>
+                <tr>
+
+    <td><textarea id="subcode1"></textarea></td>
+    <td><textarea id="subname1"></textarea></td>
+    <td><textarea id="subtype1"></textarea></td>
+    <td><textarea id="subinternal1" onkeyup="numbersOnly(this)"></textarea></td>
+    <td><textarea id="subexternal1" onkeyup="numbersOnly(this)"></textarea></td>
+    <td><textarea id="subback1"></textarea></td>
+    <td><textarea id="subgrade1"></textarea></td>
+  </tr>
+                </tr>
+                <tr>
+
+                  <td><textarea id="subcode2"></textarea></td>
+                  <td><textarea id="subname2"></textarea></td>
+                  <td><textarea id="subtype2"></textarea></td>
+                  <td><textarea id="subinternal2" onkeyup="numbersOnly(this)"></textarea></td>
+                  <td><textarea id="subexternal2" onkeyup="numbersOnly(this)"></textarea></td>
+                  <td><textarea id="subback2"></textarea></td>
+                  <td><textarea id="subgrade2"></textarea></td>
+                </tr>
+                <tr>
+
+          <td><textarea></textarea></td>
+        <td><textarea></textarea></td>
+        <td><textarea></textarea></td>
+        <td><textarea></textarea></td>
+        <td><textarea></textarea></td>
+        <td><textarea></textarea></td>
+        <td><textarea></textarea></td>
+                </tr>
+                <tr>
+        <td><textarea></textarea></td>
+        <td><textarea></textarea></td>
+        <td><textarea></textarea></td>
+        <td><textarea></textarea></td>
+        <td><textarea></textarea></td>
+        <td><textarea></textarea></td>
+        <td><textarea></textarea></td>
+                </tr>
+                <tr>
+    <td><textarea></textarea></td>
+        <td><textarea></textarea></td>
+        <td><textarea></textarea></td>
+        <td><textarea></textarea></td>
+        <td><textarea></textarea></td>
+        <td><textarea></textarea></td>
+        <td><textarea></textarea></td>
+                </tr>
+                <tr>
+              </table>
+            </div>
+              <br>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+           <div class="row"> 
+<div class="col-md-6"> 
+<button  type="submit" id="saveButton" style="text-align: center;" class="btn btn-primary  w-25 ml-xl-auto">Save</button>
+</div>
+<div class="col-md-6">
+ <button type="submit" id="editButton" class="btn btn-primary  w-25  ml-4">Edit</button>
+ <button type="submit"  onclick="window.print()" class="btn btn-primary  w-25  ml-4">Print</button>
+</div>
+<br>
+<!-- <div class="col-md-6">
+ <button type="submit"  onclick="window.print()" class="btn btn-primary  w-25  ml-4">Print</button>
+</div> -->
+ </div>
+ 
+
+
+        
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+
+        </div>
+
+
+          
+
+        <div class="tab-pane" id="dashboard">
+          <h1 class="mb-4 text-dark">Dashboard</h1>
+          <div class="jumbotron bg-dark">
+            <h1 class="welcome d-flex justify-content-center">Welcome!</h1>
+            <h3 class="d-flex justify-content-center">Garud Technical University</h3>    
+          </div>
+        </div>
+
+        <div class="tab-pane" id="registerStudent">
+          <h1 class="mb-4 text-dark">Names of registered Students</h1>
+          <div class="">
+              <p id="listUser" onchange="reLoad();" style="text-transform: capitalize; font-weight: bolder; padding: 7px; margin: 4px;"> 
+                 <span id="loading"></span>
+
+              </p>
+          </div>
+        </div>
+
+
+        <div class="tab-pane" id="addNewAdmin"  >
+          <h1 class="mb-4 text-dark">Register an Admin</h1>
+          <div class="">
+            
+                <input type="email" id="admin-email"><button id="adminButton">Make admin</button>
+          </div>
+        </div>
+
+        <div class="tab-pane" id="deleteName">
+          <h4 class="mb-4 text-dark">please note once you click the delete button the student name will be permanently delete from the database </h4>
+          <div class="form-inline">
+              <input type="text"   style="text-transform: capitalize;" class="form-control w-50  " id="deleteNameBox" placeholder="Student Name">
+               <button type="submit" id="deleteButton"  class="btn btn-danger  ml-2">Delete</button>
+               <button type="submit" id="deleteAll"  class="btn btn-danger  ml-2">Delete All</button>
+
+               <br>
+               
+          </div>
+          <p style="color: red;" id="required"></p>
+        </div>
+        
+ 
+        
+
+      </div>
+
+       <style>
+        h1.welcome{
+          line-height: 1.5em;
+          transform: scaleX(0.7);
+          font-size:6em;
+          font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma;
+        }
+        h3.d-flex{
+          letter-spacing: 0.2em;
+        }
+
+       </style>
+
+       
+
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <strong>Copyright &copy; 2022 <a href="garud_team.com">Garud</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 1.0.0 
+    </div>
+  </footer>
+
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <p style="color: white;"></p>
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+<script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<script type="text/javascript" src="js/MainResult.js"></script>
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+ 
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+ 
+<!-- overlayScrollbars -->
+<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- FastClick -->
+ 
+<script src="dist/js/adminlte.js"></script>
+ 
+</body>
+</html>
