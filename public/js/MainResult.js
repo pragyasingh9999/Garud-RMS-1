@@ -194,7 +194,7 @@ DeleteAll.addEventListener("click",function(){
     console.log("All Student data deleted");
           Swal.fire(
             'Deleted!',
-            'Your file has been deleted.',
+            'Your file has been deleted lol...',
             'success'
           )
         }
